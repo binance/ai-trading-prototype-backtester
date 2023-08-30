@@ -1,6 +1,7 @@
 symbol: BTCUSDT
 start_balance: 10000
 order_quantity: 0.01
+total_quantity_limit: 1
 commission: 0.002
 kline_interval: 1m
 start_date: 2023-05-25

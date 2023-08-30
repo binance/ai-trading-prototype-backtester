@@ -1,10 +1,11 @@
-import requests
-import pandas as pd
 import datetime
 import logging
 import os
 from io import BytesIO
 from zipfile import ZipFile
+
+import pandas as pd
+import requests
 
 
 def get_kline_data(symbol, kline_interval, date_str):
@@ -59,7 +60,7 @@ def download_binance_data(symbol, kline_interval, start_date, end_date, logging_
         start_date (datetime.date): The start date of the data to download.
         end_date (datetime.date): The end date of the data to download.
     """
-    logging.basicConfig(level=logging_level)  # Initialise Logging
+    logging.basicConfig(level=logging_level, format="%(message)s")  # Initialise Logging
     market_data_path = f"market_data/{symbol.upper()}/{kline_interval}"
 
     # Check if the downloads directory exists, create it if it doesn't

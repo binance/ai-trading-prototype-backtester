@@ -1,10 +1,12 @@
 import logging
 import os
+
 import bokeh
 from backtesting import Backtest
+
 from aitradingprototypebacktester.config_loader import load_config
 from aitradingprototypebacktester.data_downloader import download_binance_data
-from aitradingprototypebacktester.trading_strategy import TradingStrategy
+from aitradingprototypebacktester.strategy_manager import StrategyManager
 
 
 def initialise_config(config):
@@ -95,22 +97,30 @@ if __name__ == "__main__":
         commission,
         logging_level,
     ) = initialise_config(config)
-    logging.basicConfig(level=logging_level)  # Initialise Logging
+    logging.basicConfig(level=logging_level, format="%(message)s")  # Initialise Logging
+
     kline_data = download_binance_data(
         symbol, kline_interval, start_date, end_date, logging_level
     )
     kline_data = (kline_data / 1e6).assign(
         Volume=kline_data.Volume * 1e6  # Convert relevant columns to satoshis
     )
+
     bt = Backtest(
-        kline_data, TradingStrategy, cash=start_balance, commission=commission
+        kline_data,
+        StrategyManager,
+        cash=start_balance,
+        commission=commission,
+        exclusive_orders=False,
     )
     logging.info("Running Backtest...")
+
     results = bt.run()
     results, bt = convert_from_satoshi(
         results, bt
     )  # Convert relevant columns back from satoshis
     logging.info(results)
+
     write_results(results)
     plot = bt.plot(resample=False, filename="output/visualisation/dynamic_report.html")
     bokeh.io.export.export_png(
