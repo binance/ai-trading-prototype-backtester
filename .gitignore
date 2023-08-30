@@ -1,7 +1,0 @@
-.python-version
-.env
-.venv
-__pycache__
-output
-market_data
-*.yaml
