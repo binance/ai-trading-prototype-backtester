@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name="aitradingprototypebacktester",
-    version="1.0.2",
+    version="1.0.3",
     description="AI Trading Prototype Backtester",
     author="Binance",
     packages=["aitradingprototypebacktester"],
