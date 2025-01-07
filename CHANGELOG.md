@@ -1,5 +1,9 @@
 # Change log
 
+## v1.0.4 - 2025-01-07
+
+- Pump dependencies
+
 ## v1.0.3 - 2024-04-17
 
 - Pump dependencies
